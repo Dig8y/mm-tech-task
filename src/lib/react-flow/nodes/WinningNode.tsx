@@ -2,8 +2,6 @@ import type { NodeProps } from "reactflow";
 
 import React from "react";
 import { Handle, Position } from "reactflow";
-import { Slider } from "@/components/ui/slider";
-import useStore from "../store";
 
 
 export type WinningNodeData = {

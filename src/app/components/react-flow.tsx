@@ -1,8 +1,8 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useEffect,} from "react";
 import "reactflow/dist/style.css";
-import type { EdgeTypes, Node, NodeTypes } from "reactflow";
+import type { EdgeTypes, NodeTypes } from "reactflow";
 import { AttributeNode } from "@/lib/react-flow/nodes/AttributeNode";
 
 import React from 'react';

@@ -55,10 +55,10 @@ export default function Home() {
                     })
                     return
                   }
-                  if (attributes.find((c) => c === currentAttribute)) {
+                  if ([...choices, ...attributes].find((a) => a === currentAttribute)) {
                     toast({
                       "title": "Error",
-                      "description": "Attribute already exists",
+                      "description": "Already exists",
                     })
                     return
                   }
@@ -100,10 +100,10 @@ export default function Home() {
                     })
                     return
                   }
-                  if (choices.find((c) => c === currentChoice)) {
+                  if ([...choices, ...attributes].find((c) => c === currentChoice)) {
                     toast({
                       "title": "Error",
-                      "description": "Choice already exists",
+                      "description": "Already exists",
                     })
                     return
                   }
