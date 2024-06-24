@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import ReactFlowComponent from "./components/react-flow";
-import { ListPlus, Trash, X } from "lucide-react";
+import { ListPlus, X } from "lucide-react";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";

@@ -18,9 +18,6 @@ import { WinningNode } from "@/lib/react-flow/nodes/WinningNode";
 const selector = (state: RFState) => ({
   nodes: state.nodes,
   edges: state.edges,
-  onNodesChange: state.onNodesChange,
-  onEdgesChange: state.onEdgesChange,
-  onConnect: state.onConnect,
   setNodes: state.setNodes,
   setEdges: state.setEdges,
 });
@@ -40,7 +37,7 @@ export default function ReactFlowComponent({
   attributes: string[],
   choices: string[],
 }) {
-  const { nodes, edges, onNodesChange, onEdgesChange, onConnect, setEdges, setNodes } = useStore(
+  const { nodes, edges, setEdges, setNodes } = useStore(
     useShallow(selector)
   );
 
@@ -48,23 +45,21 @@ export default function ReactFlowComponent({
 
   useEffect(() => {
 
-
     const totalWidth = Math.max(attributes.length, choices.length) * 225;
-
     const newNodes = [...attributes.map((attribute, index) => ({
       id: attribute,
       type: "attribute-node",
-      position: { x: (index * 225) - (totalWidth / 2) + 225, y: 0 },
+      position: { x: (index * 225), y: 0 },
       data: { name: attribute, weight: 0 },
     })), ...choices.map((choice, index) => ({
       id: choice,
       type: "choice-node",
-      position: { x: (index * 225) - (totalWidth / 2) + 112.5, y: 200 },
+      position: { x: (index * 225), y: 200 },
       data: { name: choice, choiceScore: 0, attributeScores: attributes.map((attribute) => ({ name: attribute, attributeScore: 0 })) },
     })), {
       id: "winner",
       type: "winning-node",
-      position: { x: (totalWidth / 2) - 225, y: 450 },
+      position: { x: (((totalWidth / 225) - 1) / 2) * 225, y: 450 },
       data: { label: "winner", name: "Select a winner" }
     }]
 
@@ -89,10 +84,8 @@ export default function ReactFlowComponent({
     <ReactFlow
       nodes={nodes}
       nodeTypes={nodeTypes}
-      onNodesChange={onNodesChange}
       edges={edges}
       edgeTypes={edgeTypes}
-      onEdgesChange={onEdgesChange}
       fitView
     >
       <Background />

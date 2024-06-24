@@ -1,18 +1,5 @@
 import { create } from "zustand";
-import {
-  Connection,
-  Edge,
-  EdgeChange,
-  Node,
-  NodeChange,
-  addEdge,
-  OnNodesChange,
-  OnEdgesChange,
-  OnConnect,
-  applyNodeChanges,
-  applyEdgeChanges,
-  useNodes,
-} from "reactflow";
+import { Edge, Node } from "reactflow";
 
 export type AttributeNodeData = {
   name: string;
@@ -24,9 +11,6 @@ export type AttributeNodeData = {
 export type RFState = {
   nodes: Node<AttributeNodeData>[];
   edges: Edge[];
-  onNodesChange: OnNodesChange;
-  onEdgesChange: OnEdgesChange;
-  onConnect: OnConnect;
   setNodes: (nodes: Node[]) => void;
   setEdges: (edges: Edge[]) => void;
   updateNodeWeight: (name: string, weight: number) => void;
@@ -39,21 +23,6 @@ export type RFState = {
 const useStore = create<RFState>((set, get) => ({
   nodes: [],
   edges: [],
-  onNodesChange: (changes: NodeChange[]) => {
-    set({
-      nodes: applyNodeChanges(changes, get().nodes),
-    });
-  },
-  onEdgesChange: (changes: EdgeChange[]) => {
-    set({
-      edges: applyEdgeChanges(changes, get().edges),
-    });
-  },
-  onConnect: (connection: Connection) => {
-    set({
-      edges: addEdge(connection, get().edges),
-    });
-  },
   setNodes: (nodes: Node[]) => {
     set({ nodes });
   },
@@ -99,6 +68,15 @@ const useStore = create<RFState>((set, get) => ({
             .filter((node) => node.type === "choice-node")
             .reduce((acc, curr) => {
               if (
+                (curr.data.choiceScore &&
+                  curr.data.choiceScore === (acc.data.choiceScore ?? 0)) ||
+                curr.data.choiceScore === 0
+              ) {
+                return {
+                  ...acc,
+                  data: { ...acc.data, name: "Decide a winner" },
+                };
+              } else if (
                 curr.data.choiceScore &&
                 curr.data.choiceScore > (acc.data.choiceScore ?? 0)
               ) {
@@ -167,6 +145,15 @@ const useStore = create<RFState>((set, get) => ({
             .filter((node) => node.type === "choice-node")
             .reduce((acc, curr) => {
               if (
+                (curr.data.choiceScore &&
+                  curr.data.choiceScore === (acc.data.choiceScore ?? 0)) ||
+                curr.data.choiceScore === 0
+              ) {
+                return {
+                  ...acc,
+                  data: { ...acc.data, name: "Decide a winner" },
+                };
+              } else if (
                 curr.data.choiceScore &&
                 curr.data.choiceScore > (acc.data.choiceScore ?? 0)
               ) {
