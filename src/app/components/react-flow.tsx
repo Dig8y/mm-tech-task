@@ -1,9 +1,8 @@
 "use client";
 
-import { edgeTypes, initialEdges } from "@/lib/react-flow/edges";
 import { useCallback, useEffect, useState } from "react";
 import "reactflow/dist/style.css";
-import type { Node, NodeTypes } from "reactflow";
+import type { EdgeTypes, Node, NodeTypes } from "reactflow";
 import { AttributeNode } from "@/lib/react-flow/nodes/AttributeNode";
 
 import React from 'react';
@@ -27,12 +26,13 @@ const selector = (state: RFState) => ({
 });
 
 const nodeTypes = {
-  // Add any of your custom nodes here!
   "attribute-node": AttributeNode,
   "choice-node": ChoiceNode,
   "winning-node": WinningNode
 } satisfies NodeTypes;
 
+const edgeTypes = {} satisfies EdgeTypes
+  ;
 export default function ReactFlowComponent({
   attributes,
   choices

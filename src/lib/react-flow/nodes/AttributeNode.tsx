@@ -19,7 +19,6 @@ export function AttributeNode({
 
   const updateNodeWeight = useStore((state) => state.updateNodeWeight);
   return (
-    // We add this class to use the same styles as React Flow's default nodes.
     <div className="bg-white p-4 border-[1px] rounded-md w-[200px]">
       <h1 className="font-semibold text-lg">
         {data.name}
